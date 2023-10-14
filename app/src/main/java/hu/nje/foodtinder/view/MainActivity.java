@@ -1,8 +1,10 @@
-package hu.nje.foodtinder;
+package hu.nje.foodtinder.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import hu.nje.foodtinder.R;
 
 public class MainActivity extends AppCompatActivity {
 
