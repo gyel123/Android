@@ -4,12 +4,12 @@ plugins {
 
 android {
     namespace = "hu.nje.foodtinder"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "hu.nje.foodtinder"
         minSdk = 24
-        targetSdk = 33
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
