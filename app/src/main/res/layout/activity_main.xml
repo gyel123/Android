@@ -7,7 +7,7 @@
     tools:context=".MainActivity">
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/foKep"
         android:layout_width="400dp"
         android:layout_height="400dp"
         android:layout_marginTop="64dp"
@@ -17,39 +17,54 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@tools:sample/avatars" />
 
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#F5F5DC">
+    </LinearLayout>
+
     <Button
         android:id="@+id/buttonX"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="75dp"
+        android:layout_width="110dp"
+        android:layout_height="110dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="72dp"
         android:text="X"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/foKep"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/buttonSave"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="77dp"
-        android:layout_marginEnd="50dp"
+        android:layout_width="110dp"
+        android:layout_height="110dp"
+        android:layout_marginTop="72dp"
+        android:layout_marginEnd="64dp"
         android:text="Save"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintHorizontal_bias="0.845"
+        app:layout_constraintStart_toEndOf="@+id/buttonX"
+        app:layout_constraintTop_toBottomOf="@+id/foKep"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/buttonSaveRecipes"
         android:layout_width="50dp"
         android:layout_height="60dp"
-        tools:layout_editor_absoluteX="355dp"
-        tools:layout_editor_absoluteY="4dp" />
+        android:layout_marginBottom="4dp"
+        app:layout_constraintBottom_toTopOf="@+id/foKep"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/felsoKep"
         android:layout_width="0dp"
         android:layout_height="60dp"
         android:layout_marginBottom="4dp"
-        app:layout_constraintBottom_toTopOf="@+id/imageView"
+        app:layout_constraintBottom_toTopOf="@+id/foKep"
         app:layout_constraintEnd_toStartOf="@+id/buttonSaveRecipes"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
