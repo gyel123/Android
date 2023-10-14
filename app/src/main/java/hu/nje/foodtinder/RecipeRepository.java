@@ -24,8 +24,11 @@ public class RecipeRepository {
 
             @Override
             public void onFailure(Call<RecipeResponse> call, Throwable t) {
-                // Handle failure
+                // Handle failure somehow
+
             }
+
+
         });
     }
 }
