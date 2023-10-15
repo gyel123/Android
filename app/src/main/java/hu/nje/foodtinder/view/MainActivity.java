@@ -6,13 +6,16 @@ import android.view.View;
 import android.widget.Button;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-import android.view.View.OnClickListener;
+import androidx.fragment.app.FragmentManager;
 
 
 import hu.nje.foodtinder.R;
-import hu.nje.foodtinder.view.HomeFragment;
+import hu.nje.foodtinder.view.Food_DetailsJ;
 
 public class MainActivity extends AppCompatActivity {
+
+
+
 
     private void loadFragment(Fragment fragment, String tag) {
         FragmentTransaction fragmentTransaction =
@@ -37,24 +40,38 @@ public class MainActivity extends AppCompatActivity {
         }
         fragmentTransaction.commit();
     }
-
-
-    private Button buttonNavigate;
+    private Fragment food_details;
+    private Fragment masodikablak;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        buttonNavigate = findViewById(R.id.buttonSaveRecipes);
+         food_details= new Food_DetailsJ();
+         masodikablak= new Masodikablak();
 
-        buttonNavigate.setOnClickListener(new View.OnClickListener() {
+
+        Button switchButton = findViewById(R.id.switchButton);
+
+        switchButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                // Hozz létre egy új Fragment példányt
-                loadFragment(masodikablak);
-
+            public void onClick(View v) {
+                // Switch between fragments
+                if (food_details.isVisible()) {
+                    switchFragment(masodikablak);
+                } else {
+                    switchFragment(food_details);
+                }
             }
         });
+    }
+
+    private void switchFragment(Fragment fragment) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.replace(R.id.fragmentContainer, fragment);
+        transaction.addToBackStack(null); // Optional, for back navigation
+        transaction.commit();
     }
 }
