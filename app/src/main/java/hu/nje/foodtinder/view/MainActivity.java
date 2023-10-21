@@ -7,11 +7,8 @@ import android.widget.Button;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.fragment.app.FragmentManager;
-
-
+//own
 import hu.nje.foodtinder.R;
-import hu.nje.foodtinder.view.Food_DetailsJ;
-
 public class MainActivity extends AppCompatActivity {
 
 
