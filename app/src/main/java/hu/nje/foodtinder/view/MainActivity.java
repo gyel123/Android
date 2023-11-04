@@ -1,74 +1,58 @@
 package hu.nje.foodtinder.view;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.app.ProgressDialog;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.fragment.app.FragmentManager;
+
+import android.widget.Toast;
+
+
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 //own
+import hu.nje.foodtinder.Adapters.RandomRecipeAdapter;
+import hu.nje.foodtinder.Listeners.RandomRecipeResponseListener;
 import hu.nje.foodtinder.R;
+import hu.nje.foodtinder.Response.RandomRecipeApiResponse;
+import hu.nje.foodtinder.data.RequestManager;
+
 public class MainActivity extends AppCompatActivity {
-
-
-
-
-    private void loadFragment(Fragment fragment, String tag) {
-        FragmentTransaction fragmentTransaction =
-                getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_container, fragment, tag);
-        fragmentTransaction.commit();
-
-
-    }
-
-
-
-    private void loadFragmentAndAddToBackStack(Fragment fragment, String tag) {
-        loadFragment(fragment, tag, true);
-    }
-
-    private void loadFragment(Fragment fragment, String tag, boolean addToBackStack) {
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_container, fragment, tag);
-        if (addToBackStack) {
-            fragmentTransaction.addToBackStack(tag);
-        }
-        fragmentTransaction.commit();
-    }
-    private Fragment food_details;
-    private Fragment masodikablak;
+    ProgressDialog dialog;
+    RequestManager manager;
+    RandomRecipeAdapter randomRecipeAdapter;
+    RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-         food_details= new Food_DetailsJ();
-         masodikablak= new Masodikablak();
+        dialog = new ProgressDialog(this);
+        dialog.setTitle("Loading...");
+
+        manager = new RequestManager(this);
+        manager.getRandomRecipes(randomRecipeResponseListener);
+
+        dialog.show();
 
 
-        Button switchButton = findViewById(R.id.switchButton);
-
-        switchButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Switch between fragments
-                if (food_details.isVisible()) {
-                    switchFragment(masodikablak);
-                } else {
-                    switchFragment(food_details);
-                }
-            }
-        });
     }
 
-    private void switchFragment(Fragment fragment) {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.fragmentContainer, fragment);
-        transaction.addToBackStack(null); // Optional, for back navigation
-        transaction.commit();
-    }
+    private final RandomRecipeResponseListener randomRecipeResponseListener = new RandomRecipeResponseListener() {
+        @Override
+        public void didFetch(RandomRecipeApiResponse response, String message) {
+            dialog.dismiss();
+            recyclerView = findViewById(R.id.recycler_random);
+            recyclerView.setHasFixedSize(true);
+            recyclerView.setLayoutManager(new GridLayoutManager(MainActivity.this, 1));
+            randomRecipeAdapter = new RandomRecipeAdapter(MainActivity.this, response.recipes);
+            recyclerView.setAdapter(randomRecipeAdapter);
+        }
+
+        @Override
+        public void didError(String message) {
+            Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT);
+        }
+    };
 }
