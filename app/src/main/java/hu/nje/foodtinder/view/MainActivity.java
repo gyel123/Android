@@ -3,6 +3,7 @@ package hu.nje.foodtinder.view;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 
 import android.widget.Toast;
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 //own
 import hu.nje.foodtinder.Adapters.RandomRecipeAdapter;
 import hu.nje.foodtinder.Listeners.RandomRecipeResponseListener;
+import hu.nje.foodtinder.Listeners.RecipeCliclListener;
 import hu.nje.foodtinder.R;
 import hu.nje.foodtinder.Response.RandomRecipeApiResponse;
 import hu.nje.foodtinder.data.RequestManager;
@@ -46,13 +48,21 @@ public class MainActivity extends AppCompatActivity {
             recyclerView = findViewById(R.id.recycler_random);
             recyclerView.setHasFixedSize(true);
             recyclerView.setLayoutManager(new GridLayoutManager(MainActivity.this, 1));
-            randomRecipeAdapter = new RandomRecipeAdapter(MainActivity.this, response.recipes);
+            randomRecipeAdapter = new RandomRecipeAdapter(MainActivity.this, response.recipes,recipeCliclListener);
             recyclerView.setAdapter(randomRecipeAdapter);
         }
 
         @Override
         public void didError(String message) {
             Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT);
+        }
+    };
+
+    private final RecipeCliclListener recipeCliclListener = new RecipeCliclListener(){
+        @Override
+        public void onRecipeClicked(String id){
+           startActivity(new Intent(MainActivity.this, RecipeDetailsActivity.class)
+                   .putExtra("id", id));
         }
     };
 }

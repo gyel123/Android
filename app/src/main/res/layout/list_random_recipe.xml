@@ -32,7 +32,7 @@
         <TextView
             android:id="@+id/textView_recipe"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="200dp"
             android:padding="8dp"/>
         <LinearLayout
             android:layout_width="match_parent"
@@ -56,5 +56,26 @@
                     android:layout_height="wrap_content"/>
             </LinearLayout>
         </LinearLayout>
+        <LinearLayout
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/button_reload"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:text="X" />
+                <Button
+                    android:id="@+id/button_save"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="Save" />
+            </LinearLayout>
+
     </LinearLayout>
 </androidx.cardview.widget.CardView>
