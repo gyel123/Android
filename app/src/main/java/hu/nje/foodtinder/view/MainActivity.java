@@ -1,11 +1,12 @@
 package hu.nje.foodtinder.view;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.Bundle;
 
+import android.view.View;
 import android.widget.Toast;
 
 
@@ -38,6 +39,16 @@ public class MainActivity extends AppCompatActivity {
 
         dialog.show();
 
+        final OnBackPressedCallback backPressedCallback = new OnBackPressedCallback(true ) {
+            @Override
+            public void handleOnBackPressed() {
+                    recyclerView.setVisibility(View.VISIBLE);
+                    findViewById(R.id.fragment_container).setVisibility(View.GONE);
+                    reloadData();
+            }
+        };
+
+        getOnBackPressedDispatcher().addCallback(this,backPressedCallback);
 
     }
 
@@ -45,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void didFetch(RandomRecipeApiResponse response, String message) {
             dialog.dismiss();
-            recyclerView = findViewById(R.id.recycler_random);
+            recyclerView = findViewById(R.id.recycler_view);
             recyclerView.setHasFixedSize(true);
             recyclerView.setLayoutManager(new GridLayoutManager(MainActivity.this, 1));
             randomRecipeAdapter = new RandomRecipeAdapter(MainActivity.this, response.recipes,recipeCliclListener);
@@ -54,15 +65,32 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void didError(String message) {
-            Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT);
+            Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
         }
     };
 
-    private final RecipeCliclListener recipeCliclListener = new RecipeCliclListener(){
+    public void reloadData(){
+        dialog.show();
+        manager.getRandomRecipes(randomRecipeResponseListener);
+    }
+
+    private final RecipeCliclListener recipeCliclListener = new RecipeCliclListener() {
         @Override
-        public void onRecipeClicked(String id){
-           startActivity(new Intent(MainActivity.this, RecipeDetailsActivity.class)
-                   .putExtra("id", id));
+        public void onRecipeClicked(String id) {
+            RecipeDetailsFragment fragment = RecipeDetailsFragment.newInstance(id);
+
+
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_container, fragment, null)
+                    .addToBackStack(null)
+                    .commit();
+
+            recyclerView.setVisibility(View.GONE);
+            findViewById(R.id.fragment_container).setVisibility(View.VISIBLE);
         }
     };
 }
+
+
+
+
