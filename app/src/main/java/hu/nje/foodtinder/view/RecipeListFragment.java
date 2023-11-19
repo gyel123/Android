@@ -20,12 +20,7 @@ import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 import java.util.concurrent.ExecutorService;
@@ -33,10 +28,7 @@ import java.util.concurrent.Executors;
 
 import hu.nje.foodtinder.Adapters.SavedRecipesAdapter;
 import hu.nje.foodtinder.Listeners.RecipeClickListener;
-import hu.nje.foodtinder.Listeners.RecipeListListener;
 import hu.nje.foodtinder.Models.Meal;
-import hu.nje.foodtinder.Models.MealDao;
-import hu.nje.foodtinder.Models.RecipeDetailsResponse;
 import hu.nje.foodtinder.R;
 import hu.nje.foodtinder.data.FoodTinderDatabase;
 
@@ -55,6 +47,7 @@ public class RecipeListFragment extends Fragment {
             transaction.commit();
         }
     };
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_recipe_list, container, false);

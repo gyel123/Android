@@ -68,8 +68,12 @@ public class MainActivity extends AppCompatActivity {
         final OnBackPressedCallback backPressedCallback = new OnBackPressedCallback(true ) {
             @Override
             public void handleOnBackPressed() {
+                if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+                    getSupportFragmentManager().popBackStack();
+                } else {
                     recyclerView.setVisibility(View.VISIBLE);
                     findViewById(R.id.fragment_container).setVisibility(View.GONE);
+                }
             }
         };
 
