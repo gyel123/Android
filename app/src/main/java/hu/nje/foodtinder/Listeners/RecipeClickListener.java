@@ -1,5 +1,5 @@
 package hu.nje.foodtinder.Listeners;
 
-public interface RecipeCliclListener {
+public interface RecipeClickListener {
     void onRecipeClicked(String id);
 }

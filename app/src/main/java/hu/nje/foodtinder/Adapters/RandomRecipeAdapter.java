@@ -16,7 +16,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-import hu.nje.foodtinder.Listeners.RecipeCliclListener;
+import hu.nje.foodtinder.Listeners.RecipeClickListener;
 import hu.nje.foodtinder.Models.Recipe;
 import hu.nje.foodtinder.R;
 import hu.nje.foodtinder.view.MainActivity;
@@ -25,9 +25,9 @@ public class RandomRecipeAdapter extends RecyclerView.Adapter<RandomRecipeViewHo
 
     Context context;
     List<Recipe> list;
-    RecipeCliclListener listener;
+    RecipeClickListener listener;
 
-    public RandomRecipeAdapter(Context context, List<Recipe> list, RecipeCliclListener listener) {
+    public RandomRecipeAdapter(Context context, List<Recipe> list, RecipeClickListener listener) {
         this.context = context;
         this.list = list;
         this.listener = listener;
@@ -59,6 +59,8 @@ public class RandomRecipeAdapter extends RecyclerView.Adapter<RandomRecipeViewHo
             @Override
             public void onClick(View v) {
                 if (context instanceof MainActivity){
+                    Recipe recipe = list.get(holder.getBindingAdapterPosition());
+                    ((MainActivity)context).saveMealToDatabase(recipe.id ,recipe.title, recipe.image);
                     ((MainActivity)context).reloadData();
                 }
             }
