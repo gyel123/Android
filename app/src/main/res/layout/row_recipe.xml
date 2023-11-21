@@ -12,9 +12,20 @@
 
     <TextView
         android:id="@+id/recipeTitleTextView"
-        android:layout_width="wrap_content"
+        android:singleLine="true"
+        android:ellipsize="marquee"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:scrollHorizontally="true"
+        android:layout_width="160dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:padding="8dp"
         android:text="Recipe Title" />
+
+    <Button
+        android:id="@+id/button_delete"
+        android:layout_width="250px"
+        android:layout_height="150px"
+        android:layout_gravity="end|center_vertical"
+        android:text="Törlés" />
 </LinearLayout>

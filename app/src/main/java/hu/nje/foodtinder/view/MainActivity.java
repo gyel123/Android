@@ -35,6 +35,8 @@ public class MainActivity extends AppCompatActivity {
     RandomRecipeAdapter randomRecipeAdapter;
     RecyclerView recyclerView;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -134,8 +136,26 @@ public class MainActivity extends AppCompatActivity {
                 db.mealDao().insert(meal);
             }
         });
+
+    }
+    public void deleteMealFromDatabase(int id) {
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        executor.execute(new Runnable() {
+            @Override
+            public void run() {
+                Meal meal = new Meal();
+                meal.id = id;
+                FoodTinderDatabase db = Room.databaseBuilder(getApplicationContext(),
+                        FoodTinderDatabase.class, "meal_database").build();
+                db.mealDao().delete(meal);
+
+                runOnUiThread(() -> reloadData());
+            }
+        });
     }
 }
+
+
 
 
 
